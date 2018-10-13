@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+        <!-- DataSource -->
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+            <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        	<property name="jdbcUrl" value="jdbc:mysql:///crm"></property>
+        	<property name="user" value="root"></property>
+        	<property name="password" value="123456"></property>
+        	<property name="acquireIncrement" value="2"></property>
+        	<property name="initialPoolSize" value="3"></property>
+        	<property name="maxPoolSize" value="10"></property>
+        	<property name="maxStatements" value="100"></property>
+        </bean>
+        
+        <!-- JdbcTemplate -->
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        	<property name="dataSource" ref="dataSource"></property>
+        </bean>
+        
+          
+        <!-- 配置json转换器（适配器） -->
+        <!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        	<property name="messageConverters">
+        		<list>
+        			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+        		</list>
+        	</property>
+        </bean> -->
+        
+        <!-- 开启注解扫描 ,注册bean-->
+        <context:component-scan base-package="com.crm"/>
+        
+        <!-- *************手动注册Action************** -->
+        
+        <!-- ****************************** -->
+        <!-- <mvc:default-servlet-handler/> -->
+</beans>
